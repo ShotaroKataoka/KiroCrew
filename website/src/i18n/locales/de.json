@@ -4823,7 +4823,6 @@
         "no_slides_yet": "Noch keine Folien",
         "reveal_folder": "Ordner anzeigen",
         "copy_deck_path": "Deck-Pfad kopieren",
-        "more_deck_actions": "Weitere Deck-Aktionen",
         "copy_deck_path_hint": "In einen neuen Chat einfügen, um an diesem Deck zu arbeiten: {{path}}",
         "copied_deck_path": "Kopiert",
         "copy_deck_path_failed": "Deck-Pfad konnte nicht kopiert werden",

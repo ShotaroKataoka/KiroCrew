@@ -4734,7 +4734,6 @@
         "no_slides_yet": "এখনও কোনও স্লাইড নেই",
         "reveal_folder": "ফোল্ডার দেখান",
         "copy_deck_path": "ডেকের পাথ কপি করো",
-        "more_deck_actions": "ডেকের আরও কাজ",
         "copy_deck_path_hint": "নতুন চ্যাটে পেস্ট করলে এই ডেকটি বেছে নেওয়া যায়: {{path}}",
         "copied_deck_path": "কপি হয়েছে",
         "copy_deck_path_failed": "ডেকের পাথ কপি করা যায়নি",

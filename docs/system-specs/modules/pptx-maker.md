@@ -956,10 +956,13 @@ while the session is running. The entry shows from memory without waiting for
 was remembered may conclude the session is gone, which forgets it (and undocks it
 if docked).
 
-The deck viewer's header keeps two controls: "Download .pptx" and one overflow
-menu holding "Copy deck path" and (local sessions) "Reveal folder". Copy copies
-the deck directory, which is the `deck_id` every SDPM tool takes, so a new chat
-can be pointed at an existing deck unambiguously; the menu item says so. A
+The deck viewer's header row holds at most two actions: "Reveal folder" (local
+sessions) and "Download .pptx", both one click. Under it, a row of its own shows
+the deck directory (middle-truncated, the full path in its tooltip) with a
+"Copy deck path" icon button beside it and the "Copied" confirmation after it.
+Copy copies the deck directory, which is the `deck_id` every SDPM tool takes, so
+a new chat can be pointed at an existing deck unambiguously; the button's tooltip
+says so. A
 refused clipboard shows the path in an `ErrorNotice`. The viewer's notices take
 the page's `handOff` decision: off while docked beside the studio chat, whose
 unsent draft a hand-off would discard.

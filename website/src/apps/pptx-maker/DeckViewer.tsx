@@ -9,14 +9,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Check, Copy, ExternalLink, FolderOpen, MoreHorizontal, Presentation } from 'lucide-react'
-import { Btn, EmptyState } from '../../components/ui'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../../components/ui/dropdown-menu'
+import { Check, Copy, ExternalLink, FolderOpen, Presentation } from 'lucide-react'
+import { EmptyState } from '../../components/ui'
 import MarkdownRenderer from '../../components/MarkdownRenderer'
 import OutlineView from './OutlineView'
 import SegmentedControl from '../../components/SegmentedControl'
@@ -219,6 +213,16 @@ export default function DeckViewer({ deckId, handOff = true }: { deckId: string;
           collapse={false}
         />
         <div className="flex-1" />
+        {isLocal && detail.dirPath && (
+          <button
+            type="button"
+            onClick={() => { void revealOrOpen(detail.dirPath, 'reveal', reveal) }}
+            className="inline-flex items-center gap-1 text-[12px] text-muted px-2 py-1 rounded hover:bg-bg-elevated hover:text-text transition-colors bg-transparent border-none cursor-pointer"
+          >
+            <FolderOpen className="lucide-inline" />
+            {i18nT('apps.pptxMaker.deckViewer.reveal_folder')}
+          </button>
+        )}
         {detail.pptxUrl && (
           <a
             href={`/api/apps/pptx-maker/${detail.pptxUrl}`}
@@ -229,54 +233,37 @@ export default function DeckViewer({ deckId, handOff = true }: { deckId: string;
             {i18nT('apps.pptxMaker.deckViewer.download_pptx')}
           </a>
         )}
-        {copyState === 'copied' && (
-          <span role="status" className="inline-flex items-center gap-1 text-[12px] text-muted">
-            <Check className="lucide-inline" />
-            {i18nT('apps.pptxMaker.deckViewer.copied_deck_path')}
-          </span>
-        )}
-        {/* One overflow trigger keeps the row at two controls (Download + this). */}
-        {detail.dirPath && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Btn
-                className="!px-1.5"
-                aria-label={i18nT('apps.pptxMaker.deckViewer.more_deck_actions')}
-                title={i18nT('apps.pptxMaker.deckViewer.more_deck_actions')}
-              >
-                <MoreHorizontal size={14} />
-              </Btn>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="max-w-[22rem]">
-              {/* The deck's directory is the `deck_id` every SDPM tool takes, so
-                  pasting it into a new chat points the agent at this exact deck
-                  (names can repeat; the path cannot). The item says so. */}
-              <DropdownMenuItem
-                onSelect={() => {
-                  void copyToClipboard(detail.dirPath).then((ok) => setCopyState(ok ? 'copied' : 'failed'))
-                }}
-                className="items-start"
-              >
-                <Copy size={13} className="shrink-0 mt-0.5" />
-                <span className="flex flex-col min-w-0">
-                  <span>{i18nT('apps.pptxMaker.deckViewer.copy_deck_path')}</span>
-                  {/* Middle-truncated so the item stays one short hint; the
-                      full path is in the tooltip and in what gets copied. */}
-                  <span className="text-[12px] text-muted" title={detail.dirPath}>
-                    {i18nT('apps.pptxMaker.deckViewer.copy_deck_path_hint', { path: middleTruncate(detail.dirPath) })}
-                  </span>
-                </span>
-              </DropdownMenuItem>
-              {isLocal && (
-                <DropdownMenuItem onSelect={() => { void revealOrOpen(detail.dirPath, 'reveal', reveal) }}>
-                  <FolderOpen size={13} className="shrink-0" />
-                  <span>{i18nT('apps.pptxMaker.deckViewer.reveal_folder')}</span>
-                </DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        )}
       </div>
+      {/* The deck's directory is the `deck_id` every SDPM tool takes, so pasting
+          it into a new chat points the agent at this exact deck (names can
+          repeat; the path cannot). Its copy button sits beside the path in a
+          row of its own, so the header row above keeps its two actions. */}
+      {detail.dirPath && (
+        <div className="flex items-center gap-1 min-w-0 px-3 py-1 border-b border-border shrink-0 text-[12px] text-muted">
+          {/* Middle-truncated so the root and the deck folder name both stay
+              visible; the full path is in the tooltip and in what gets copied. */}
+          <span className="truncate font-mono" title={detail.dirPath} data-testid="deck-viewer-path">
+            {middleTruncate(detail.dirPath)}
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              void copyToClipboard(detail.dirPath).then((ok) => setCopyState(ok ? 'copied' : 'failed'))
+            }}
+            aria-label={i18nT('apps.pptxMaker.deckViewer.copy_deck_path')}
+            title={i18nT('apps.pptxMaker.deckViewer.copy_deck_path_hint', { path: detail.dirPath })}
+            className="mc-touch-hit shrink-0 inline-flex items-center rounded p-1 text-muted hover:bg-bg-elevated hover:text-text transition-colors bg-transparent border-none cursor-pointer"
+          >
+            <Copy className="lucide-inline" />
+          </button>
+          {copyState === 'copied' && (
+            <span role="status" className="shrink-0 inline-flex items-center gap-1">
+              <Check className="lucide-inline" />
+              {i18nT('apps.pptxMaker.deckViewer.copied_deck_path')}
+            </span>
+          )}
+        </div>
+      )}
       {copyState === 'failed' && (
         <div className="px-3 py-2 border-b border-border shrink-0">
           {/* No hand-off when docked beside the studio chat (handOff=false): it

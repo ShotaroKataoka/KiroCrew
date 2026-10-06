@@ -218,9 +218,7 @@ describe('DeckViewer — header actions', () => {
   it('reveals the deck folder on the host', async () => {
     deck.mockResolvedValue(detail({ dirPath: '/zzq/decks/one' }))
     renderViewer()
-    // Reveal lives in the header's overflow menu (Download + one menu trigger).
-    await userEvent.click(await screen.findByRole('button', { name: 'More deck actions' }))
-    await userEvent.click(await screen.findByRole('menuitem', { name: 'Reveal folder' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Reveal folder' }))
     // Routed through the shared `revealOrOpen(path, 'reveal')` helper, so the
     // transport call carries the explicit action argument.
     expect(revealPath).toHaveBeenCalledWith('/zzq/decks/one', 'reveal')
@@ -230,9 +228,7 @@ describe('DeckViewer — header actions', () => {
     revealPath.mockRejectedValue(new Error('zzq-no-file-manager'))
     deck.mockResolvedValue(detail({ dirPath: '/zzq/decks/one' }))
     renderViewer()
-    // Reveal lives in the header's overflow menu (Download + one menu trigger).
-    await userEvent.click(await screen.findByRole('button', { name: 'More deck actions' }))
-    await userEvent.click(await screen.findByRole('menuitem', { name: 'Reveal folder' }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Reveal folder' }))
     await waitFor(() => expect(revealPath).toHaveBeenCalled())
     // The failure is named by the shared ErrorNotice under the header row (the
     // shared helper's neutral wording, never the raw server string); the
@@ -240,7 +236,7 @@ describe('DeckViewer — header actions', () => {
     const notice = await screen.findByTestId('deck-viewer-reveal-error')
     expect(notice).toHaveAttribute('role', 'alert')
     expect(notice).not.toHaveTextContent('zzq-no-file-manager')
-    expect(screen.getByRole('button', { name: 'More deck actions' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Reveal folder' })).toBeInTheDocument()
   })
 
   it('hides the reveal action on a remote session even with a deck folder', async () => {
@@ -250,9 +246,11 @@ describe('DeckViewer — header actions', () => {
     deck.mockResolvedValue(detail({ dirPath: '/zzq/decks/one' }))
     renderViewer()
     await screen.findByText('Slides')
-    // Opened, so the assertion is about the menu's contents, not a closed menu.
-    await userEvent.click(await screen.findByRole('button', { name: 'More deck actions' }))
-    expect(await screen.findByRole('menuitem', { name: /Copy deck path/ })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Reveal folder' })).toBeNull()
+    // The path row still offers the copy, and the header has no overflow menu.
+    expect(screen.getByRole('button', { name: 'Copy deck path' })).toBeInTheDocument()
+    expect(screen.getByTestId('deck-viewer-path')).toHaveAttribute('title', '/zzq/decks/one')
+    expect(screen.queryByRole('button', { name: 'More deck actions' })).toBeNull()
     expect(screen.queryByText('Reveal folder')).toBeNull()
     expect(revealPath).not.toHaveBeenCalled()
   })

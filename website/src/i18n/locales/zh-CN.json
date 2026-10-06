@@ -4649,7 +4649,6 @@
         "no_slides_yet": "还没有幻灯片",
         "reveal_folder": "打开所在文件夹",
         "copy_deck_path": "复制演示文稿路径",
-        "more_deck_actions": "更多演示文稿操作",
         "copy_deck_path_hint": "粘贴到新聊天中即可指定此演示文稿：{{path}}",
         "copied_deck_path": "已复制",
         "copy_deck_path_failed": "无法复制演示文稿路径",

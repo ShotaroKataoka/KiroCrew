@@ -892,8 +892,11 @@ describe('PptxMakerPage', () => {
 
   it('copies the deck path, the deck_id a new chat can name', async () => {
     await renderPage()
-    await userEvent.click(await screen.findByRole('button', { name: 'More deck actions' }))
-    await userEvent.click(await screen.findByRole('menuitem', { name: /Copy deck path/ }))
+    const copy = await screen.findByRole('button', { name: 'Copy deck path' })
+    expect(copy.getAttribute('title')).toBe(
+      'Paste it into a new chat to work on this deck: /home/u/decks/20260101-demo',
+    )
+    await userEvent.click(copy)
     expect(copyToClipboardMock).toHaveBeenCalledWith('/home/u/decks/20260101-demo')
     expect(await screen.findByText('Copied')).toBeTruthy()
   })
@@ -901,8 +904,7 @@ describe('PptxMakerPage', () => {
   it('shows the deck path when the clipboard refuses the copy', async () => {
     copyToClipboardMock.mockResolvedValue(false)
     await renderPage()
-    await userEvent.click(await screen.findByRole('button', { name: 'More deck actions' }))
-    await userEvent.click(await screen.findByRole('menuitem', { name: /Copy deck path/ }))
+    await userEvent.click(await screen.findByRole('button', { name: 'Copy deck path' }))
     const notice = await screen.findByTestId('deck-viewer-copy-error')
     expect(notice.textContent).toContain("Couldn't copy the deck path")
     expect(notice.textContent).toContain('/home/u/decks/20260101-demo')

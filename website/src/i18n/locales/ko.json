@@ -4737,7 +4737,6 @@
         "no_slides_yet": "아직 슬라이드 없음",
         "reveal_folder": "폴더 표시",
         "copy_deck_path": "덱 경로 복사",
-        "more_deck_actions": "덱 작업 더 보기",
         "copy_deck_path_hint": "새 채팅에 붙여 넣으면 이 덱을 지정할 수 있음: {{path}}",
         "copied_deck_path": "복사됨",
         "copy_deck_path_failed": "덱 경로를 복사할 수 없음",

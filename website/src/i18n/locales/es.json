@@ -4819,7 +4819,6 @@
         "no_slides_yet": "Aún no hay diapositivas",
         "reveal_folder": "Mostrar la carpeta",
         "copy_deck_path": "Copiar la ruta del deck",
-        "more_deck_actions": "Más acciones del deck",
         "copy_deck_path_hint": "Pégala en un chat nuevo para trabajar con este deck: {{path}}",
         "copied_deck_path": "Copiado",
         "copy_deck_path_failed": "No se pudo copiar la ruta del deck",

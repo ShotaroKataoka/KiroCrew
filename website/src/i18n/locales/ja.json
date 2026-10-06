@@ -4737,7 +4737,6 @@
         "no_slides_yet": "スライドはまだありません",
         "reveal_folder": "フォルダーを表示",
         "copy_deck_path": "デッキの場所をコピー",
-        "more_deck_actions": "デッキのその他の操作",
         "copy_deck_path_hint": "新しいチャットに貼ると、このデッキを指定できます: {{path}}",
         "copied_deck_path": "コピーしました",
         "copy_deck_path_failed": "デッキの場所をコピーできませんでした",

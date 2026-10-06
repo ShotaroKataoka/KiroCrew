@@ -4734,7 +4734,6 @@
         "no_slides_yet": "अभी कोई स्लाइड नहीं",
         "reveal_folder": "फ़ोल्डर दिखाएँ",
         "copy_deck_path": "डेक का पाथ कॉपी करो",
-        "more_deck_actions": "डेक की और कार्रवाइयाँ",
         "copy_deck_path_hint": "नई चैट में पेस्ट करो, इस डेक पर काम करने के लिए: {{path}}",
         "copied_deck_path": "कॉपी हो गया",
         "copy_deck_path_failed": "डेक का पाथ कॉपी नहीं हो सका",

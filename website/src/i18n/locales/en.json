@@ -3321,7 +3321,6 @@
         "no_slides_yet": "No slides yet",
         "reveal_folder": "Reveal folder",
         "copy_deck_path": "Copy deck path",
-        "more_deck_actions": "More deck actions",
         "copy_deck_path_hint": "Paste it into a new chat to work on this deck: {{path}}",
         "copied_deck_path": "Copied",
         "copy_deck_path_failed": "Couldn't copy the deck path",
